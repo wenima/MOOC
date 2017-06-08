@@ -13,3 +13,14 @@ def iter_gcd(a, b):
     for div in range(smaller, 1, -1):
         if a % div == 0 and b % div == 0:
             return div
+
+
+def recur_gcd(a, b):
+    '''
+    a, b: positive integers
+
+    returns: a positive integer, the greatest common divisor of a & b.
+    '''
+    if b == 0:
+        return a
+    return recur_gcd(b, a % b)
