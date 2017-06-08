@@ -19,6 +19,13 @@ TEST_GCD = [
 
 @pytest.mark.parametrize('a, b, result', TEST_GCD)
 def test_iter_gcd(a, b, result):
-    """Test iter_gcd returns correct gcd."""
+    """Test iter_gcd returns correct gcd by using iteration."""
     from gcd_iter_vs_recur import iter_gcd
     assert iter_gcd(a, b) == result
+
+
+@pytest.mark.parametrize('a, b, result', TEST_GCD)
+def test_recur_gcd(a, b, result):
+    """Test recur_gcd returns correct gcd by using recursion."""
+    from gcd_iter_vs_recur import recur_gcd
+    assert recur_gcd(a, b) == result
