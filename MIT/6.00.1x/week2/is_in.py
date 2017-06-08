@@ -9,10 +9,10 @@ def is_in(char, s):
     returns: True if char is in aStr; False otherwise
     '''
     if len(s) == 0: return False
+    if len(s) <= 1:
+        return char == s
     mid = len(s) // 2
     if char == s[mid]: return True
-    if len(s) == 1 and char != s:
-        return False
     if char < s[mid]:
         return is_in(char, s[:mid])
     else:
