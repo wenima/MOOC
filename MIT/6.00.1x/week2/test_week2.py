@@ -33,6 +33,10 @@ TESTS_POLY = [
 (5, 90, 216435.8669),
 ]
 
+TEST_CC = [
+(42, .2, .04, 31.38),
+(484, .2, .04, 361.61),
+]
 
 @pytest.mark.parametrize('a, b, result', TEST_GCD)
 def test_iter_gcd(a, b, result):
@@ -55,6 +59,12 @@ def test_is_in(a, b, result):
 
 @pytest.mark.parametrize('a, b, result', TESTS_POLY)
 def test_polysum(a, b, result):
-    """Test is_in returns correct result."""
+    """Test polysum returns correct result."""
     from polysum import polysum
     assert polysum(a, b) == result
+
+@pytest.mark.parametrize('b, ir, mp, result', TESTS_CC)
+def test_polysum(b, ir, mp):
+    """Test calc_balance returns correct result."""
+    from calc_balance import calc_balance
+    assert calc_balance(b, ir, mp) == result
