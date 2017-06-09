@@ -63,8 +63,8 @@ def test_polysum(a, b, result):
     from polysum import polysum
     assert polysum(a, b) == result
 
-@pytest.mark.parametrize('b, ir, mp, result', TESTS_CC)
-def test_polysum(b, ir, mp):
+@pytest.mark.parametrize('b, ir, mp, result', TEST_CC)
+def test_polysum(b, ir, mp, result):
     """Test calc_balance returns correct result."""
     from calc_balance import calc_balance
     assert calc_balance(b, ir, mp) == result
