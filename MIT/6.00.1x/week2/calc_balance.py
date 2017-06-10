@@ -39,3 +39,21 @@ def check_payment(start_balance, annual_interest, payment, months=12):
             best_payment = payment
             payment -= 10
         else: return best_payment
+
+def calc_monthly_payment_full_bisetional(start_balance, annual_interest, months=12):
+    """Return the exact monthly payment per made to pay off a balance after 12 months."""
+    start = (start_balance + start_balance * annual_interest) / 12
+    end = start_balance / 12
+    while True:
+        payment = end + (start - end) / 2
+        b = start_balance
+        for i in range(months):
+            b = b - payment
+            b = b + (b * annual_interest / months)
+        if round(b, 2) == 0.00:return round(payment, 2)
+        if b < 0:
+            print(b)
+            start = payment
+        elif b > 0:
+            print(b)
+            end = payment
