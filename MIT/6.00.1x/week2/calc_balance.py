@@ -3,7 +3,7 @@ Write a program to calculate the credit card balance after one year if a person
 only pays the minimum monthly payment required by the credit card company each month.
 """
 
-def calc_balance(balance, annual_interest, minimum_payment, months=12):
+def calc_balance_mp(balance, annual_interest, minimum_payment, months=12):
     """Return the balance at the end 12 months given starting balance, annual interesting
     and minimum_payment.
     """
@@ -11,3 +11,31 @@ def calc_balance(balance, annual_interest, minimum_payment, months=12):
         balance = balance - balance * minimum_payment
         balance = balance + balance * annual_interest/12
     return round(balance, 2)
+
+
+def calc_monthly_payment_full(start_balance, annual_interest, months=12):
+    """Retun the monthly payment to be made to pay the full balance after n months."""
+    b = start_balance
+    out = []
+    for i in range(months):
+        b = b + b * (annual_interest/months)
+        p = b / months
+        out.append(p)
+    payment = sum(out) // len(out)
+    payment += abs(payment % 10 - 10)
+    best_payment = check_payment(start_balance, annual_interest, payment)
+    return int(best_payment)
+
+def check_payment(start_balance, annual_interest, payment, months=12):
+    """Return best payment by approximating closest to 0 from given payment
+    in multiples of 10.
+    """
+    while True:
+        b = start_balance
+        for i in range(months):
+            b = b - payment
+            b = b + (b * annual_interest / months)
+        if b < 0:
+            best_payment = payment
+            payment -= 10
+        else: return best_payment
