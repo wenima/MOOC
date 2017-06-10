@@ -52,8 +52,6 @@ def calc_monthly_payment_full_bisetional(start_balance, annual_interest, months=
             b = b + (b * annual_interest / months)
         if round(b, 2) == 0.00:return round(payment, 2)
         if b < 0:
-            print(b)
             start = payment
         elif b > 0:
-            print(b)
             end = payment
