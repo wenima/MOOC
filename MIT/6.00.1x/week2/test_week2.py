@@ -33,9 +33,20 @@ TESTS_POLY = [
 (5, 90, 216435.8669),
 ]
 
-TEST_CC = [
+TEST_CC_MP = [
 (42, .2, .04, 31.38),
 (484, .2, .04, 361.61),
+]
+
+TEST_CC_FULLY_PAID_APPROX = [
+(3329, .2, 310),
+(4773, .2, 440),
+(3926, .2, 360),
+]
+
+TEST_CC_FULLY_PAID = [
+(320000, .2, 29157.09),
+(999999, .18, 90325.03),
 ]
 
 @pytest.mark.parametrize('a, b, result', TEST_GCD)
@@ -43,7 +54,6 @@ def test_iter_gcd(a, b, result):
     """Test iter_gcd returns correct gcd by using iteration."""
     from gcd_iter_vs_recur import iter_gcd
     assert iter_gcd(a, b) == result
-
 
 @pytest.mark.parametrize('a, b, result', TEST_GCD)
 def test_recur_gcd(a, b, result):
@@ -63,8 +73,20 @@ def test_polysum(a, b, result):
     from polysum import polysum
     assert polysum(a, b) == result
 
-@pytest.mark.parametrize('b, ir, mp, result', TEST_CC)
-def test_polysum(b, ir, mp, result):
+@pytest.mark.parametrize('b, ir, mp, result', TEST_CC_MP)
+def test_calc_balance_mp(b, ir, mp, result):
     """Test calc_balance returns correct result."""
-    from calc_balance import calc_balance
-    assert calc_balance(b, ir, mp) == result
+    from calc_balance import calc_balance_mp
+    assert calc_balance_mp(b, ir, mp) == result
+
+@pytest.mark.parametrize('b, ir, result', TEST_CC_FULLY_PAID_APPROX)
+def test_calc_balance_full(b, ir, result):
+    """Test calc_monthly_payment_full returns correct result."""
+    from calc_balance import calc_monthly_payment_full
+    assert calc_monthly_payment_full(b, ir) == result
+
+@pytest.mark.parametrize('b, ir, result', TEST_CC_FULLY_PAID)
+def test_calc_monthly_payment_full_bisetional(b, ir, result):
+    """Test calc_monthly_payment_full returns correct result."""
+    from calc_balance import calc_monthly_payment_full_bisetional
+    assert calc_monthly_payment_full_bisetional(b, ir) == result
