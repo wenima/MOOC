@@ -63,3 +63,19 @@ summary(bottom5) # == Number of cases in table: 177510
 
 # One of the locations has a much higher arrest rate than the other locations.
 # Which is it?
+# First we need to create our top5 df again
+top5 = subset(mvt, LocationDescription %in% c("STREET","PARKING LOT/GARAGE(NON.RESID.)",
+"ALLEY","GAS STATION","DRIVEWAY - RESIDENTIAL"))
+# then we need to remove unnecessary Locations
+top5$LocationDescription = factor(top5$LocationDescription)
+# then we need to find the ratios of Arrests per Location
+tapply(top5$Arrest, top5$LocationDescription, mean)
+# this shows that Gas Station has a significantly higher Arrest rate than the next highest
+
+# 4.4 - Popular Locations
+# On which day of the week do the most motor vehicle thefts at gas stations happen?
+table(top5$LocationDescription == "GAS STATION", top5$Weekday)
+
+# 4.5 - Popular Locations
+# On which day of the week do the least motor vehicle thefts at Residential Driveways happen?
+table(top5$LocationDescription == "DRIVEWAY - RESIDENTIAL", top5$Weekday)
