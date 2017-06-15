@@ -9,6 +9,7 @@
 
 import random
 from collections import defaultdict
+import string
 
 WORDLIST_FILENAME = "../data/words.txt"
 
@@ -51,12 +52,18 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
+    # using dicts for better time complexity
     # d = defaultdict(int) # turn secretWord into a dict of letters and occurences
     # for c in secretWord:
     #     d[c] += 1
-    # while lettersGuessed: d.pop(lettersGuessed.pop(), None)
-    # return False if d else True
-    return all(lettersGuessed.count(c) for c in secretWord)
+    # lettersGuessed = set(lettersGuessed)
+    # while d:
+    #     try:
+    #         d.pop(lettersGuessed.pop(), None)
+    #     except:
+    #         return False
+    # return True
+    return all(c in set(lettersGuessed) for c in set(secretWord))
 
 
 
@@ -68,7 +75,7 @@ def getGuessedWord(secretWord, lettersGuessed):
     returns: string, comprised of letters and underscores that represents
       what letters in secretWord have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE...
+    return ''.join([c if c in set(lettersGuessed) else '_ ' for c in secretWord])
 
 
 
@@ -78,7 +85,7 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE...
+    return ''.join(sorted(set(string.ascii_lowercase) - set(lettersGuessed)))
 
 
 def hangman(secretWord):
