@@ -51,11 +51,12 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    d = defaultdict(int) # turn secretWord into a dict of letters and occurences
-    for c in secretWord:
-        d[c] += 1
-    while lettersGuessed: d.pop(lettersGuessed.pop(), None)
-    return False if d else True
+    # d = defaultdict(int) # turn secretWord into a dict of letters and occurences
+    # for c in secretWord:
+    #     d[c] += 1
+    # while lettersGuessed: d.pop(lettersGuessed.pop(), None)
+    # return False if d else True
+    return all(lettersGuessed.count(c) for c in secretWord)
 
 
 
