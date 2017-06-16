@@ -105,12 +105,10 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    secretWord = chooseWord(wordlist).lower()
-    lettersGuessed = []
+    secretWord, lettersGuessed = chooseWord(wordlist).lower(), []
     print("Welcome to the game Hangman!")
     print("I am thinking of a word that is {0} letters long".format(len(secretWord)))
-    misses = 0
-    cur_round = 1
+    misses, cur_round = 0, 1
     while True:
         print("-----------")
         if isWordGuessed(secretWord, lettersGuessed):
@@ -127,8 +125,7 @@ def hangman(secretWord):
                 print("Oops! You've already guessed that letter:", getGuessedWord(secretWord, lettersGuessed))
                 continue
             lettersGuessed.append(letter.lower())
-            if letter.lower() in secretWord:
-                print("Good guess: ", getGuessedWord(secretWord, lettersGuessed))
+            if letter.lower() in secretWord: print("Good guess: ", getGuessedWord(secretWord, lettersGuessed))
         if letter.lower() not in secretWord:
             print("Oops! That letter is not in my word:", getGuessedWord(secretWord, lettersGuessed))
             misses += 1
