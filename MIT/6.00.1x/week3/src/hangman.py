@@ -66,8 +66,6 @@ def isWordGuessed(secretWord, lettersGuessed):
     return all(c in set(lettersGuessed) for c in set(secretWord))
 
 
-
-
 def getGuessedWord(secretWord, lettersGuessed):
     '''
     secretWord: string, the word the user is guessing
@@ -76,7 +74,6 @@ def getGuessedWord(secretWord, lettersGuessed):
       what letters in secretWord have been guessed so far.
     '''
     return ''.join([c if c in set(lettersGuessed) else '_ ' for c in secretWord])
-
 
 
 def getAvailableLetters(lettersGuessed):
@@ -108,16 +105,31 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE...
-
-
-
-
-
-
-# When you've completed your hangman function, uncomment these two lines
-# and run this file to test! (hint: you might want to pick your own
-# secretWord while you're testing)
-
-# secretWord = chooseWord(wordlist).lower()
-# hangman(secretWord)
+    secretWord = chooseWord(wordlist).lower()
+    lettersGuessed = []
+    print("Welcome to the game Hangman!")
+    print("I am thinking of a word that is {0} letters long".format(len(secretWord)))
+    misses = 0
+    cur_round = 1
+    while True:
+        print("-----------")
+        if isWordGuessed(secretWord, lettersGuessed):
+            print("Congratulations, you won!".format(cur_round))
+            break
+        if misses == 8:
+                print("Sorry, you ran out of guesses. The word was {0}.".format(secretWord))
+                break
+        print("You have {0} guesses left".format(8 - misses))
+        print("Available letters: ", getAvailableLetters(lettersGuessed))
+        letter = input("Please guess a letter: ")
+        if letter.lower() in string.ascii_lowercase:
+            if letter.lower() in lettersGuessed:
+                print("Oops! You've already guessed that letter:", getGuessedWord(secretWord, lettersGuessed))
+                continue
+            lettersGuessed.append(letter.lower())
+            if letter.lower() in secretWord:
+                print("Good guess: ", getGuessedWord(secretWord, lettersGuessed))
+        if letter.lower() not in secretWord:
+            print("Oops! That letter is not in my word:", getGuessedWord(secretWord, lettersGuessed))
+            misses += 1
+        cur_round += 1
